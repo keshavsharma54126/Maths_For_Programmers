@@ -1,8 +1,8 @@
 from math import sqrt, pi, ceil, floor
 import matplotlib
 import matplotlib.patches
-import matplotlib.collections import PatchCollection
-import numpy
+from matplotlib.collections import PatchCollection
+import numpy as np
 
 import matplotlib.pyplot as plt
 from matplotlib.pyplot import xlim, ylim
@@ -62,4 +62,23 @@ def extract_vectors(objects):
             raise TypeError("Unrecognized object:{}", format(object))
 
 
-def draw(*object, origin=True, grid=(1, 1), nice_aspect_ration=True, width=0, save_as=None):
+def draw(*objects, origin=True, axes=True, grid=(1, 1), nice_aspect_ration=True, width=0, save_as=None):
+    all_vectors = list(extract_vectors(*objects))
+    xs, ys = zip(*all_vectors)
+
+    max_x, max_y, min_x, min_y = max(0, xs), max(0, ys), min(0, xs), min(0, ys)
+
+    if grid:
+        x_padding = max(ceil(0.05*(max_x-min_x)), grid[0])
+        y_padding = max(ceil(0.05*(max_y-min_y)), grid[0])
+
+        plt.xlim(floor((min_x-x_padding)/grid[0])*grid[0],
+                 ceil((max_x+x_padding)/grid[0])*grid[0])
+        plt.ylim(floor((min_y - y_padding) / grid[1]) * grid[1],
+                 ceil((max_y + y_padding) / grid[1]) * grid[1])
+
+    if origin:
+        plt.scatter([0], [0], color='k', marker='x')
+
+    if grid:
+        plt.gca().set_xticks(np.)
