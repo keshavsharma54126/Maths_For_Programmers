@@ -81,4 +81,4 @@ def draw(*objects, origin=True, axes=True, grid=(1, 1), nice_aspect_ration=True,
         plt.scatter([0], [0], color='k', marker='x')
 
     if grid:
-        plt.gca().set_xticks(np.)
+        plt.gca().set_xticks(np.arrange())
